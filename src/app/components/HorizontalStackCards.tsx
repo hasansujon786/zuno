@@ -1,7 +1,7 @@
 import { useRef } from "react"
 import { motion, useScroll, useSpring, useTransform } from "framer-motion"
 
-export default function StackSlider() {
+export default function HorizontalStackCards() {
   const cards = ["a", "b", "c", "d", "e"]
   const colors = [
     "var(--color-amber-400)",
@@ -14,7 +14,7 @@ export default function StackSlider() {
   const cardWidth = 200
   const xPos = cards.map((_, i) => `-${cardWidth * i}px`)
 
-  const sectionRef = useRef(null)
+  const sectionRef = useRef<HTMLElement | null>(null)
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
