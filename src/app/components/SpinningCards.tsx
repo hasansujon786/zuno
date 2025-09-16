@@ -1,6 +1,6 @@
-import React, { useRef } from "react"
-import { motion, useScroll, useTransform, MotionValue } from "framer-motion"
-import { useWindowSize } from "../hooks/useWindowSize"
+import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import { useWindowSize } from 'usehooks-ts';
 
 type Card = { id: string; title?: string; color?: string }
 type CircleStackScrollProps = {
@@ -14,7 +14,7 @@ export default function SpinningCards({ cards }: CircleStackScrollProps) {
     offset: ["start start", "end start"],
   })
 
-  const { width } = useWindowSize()
+  const { width = 0 } = useWindowSize({ initializeWithValue: false })
 
   const circleRadious = width + 200
   const columnsCount = cards.length

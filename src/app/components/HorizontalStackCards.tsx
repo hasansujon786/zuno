@@ -1,5 +1,6 @@
+import { motion, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
-import { motion, useScroll, useSpring, useTransform } from "framer-motion"
+import { useWindowSize } from "usehooks-ts"
 
 export default function HorizontalStackCards() {
   const cards = ["a", "b", "c", "d", "e"]
@@ -11,8 +12,8 @@ export default function HorizontalStackCards() {
     "var(--color-gray-400)",
   ]
 
-  const cardWidth = 200
-  const xPos = cards.map((_, i) => `-${cardWidth * i}px`)
+  const { width = 0 } = useWindowSize({ initializeWithValue: false })
+  const cardWidth = width * 0.26
 
   const sectionRef = useRef<HTMLElement | null>(null)
   const { scrollYProgress } = useScroll({
@@ -21,50 +22,49 @@ export default function HorizontalStackCards() {
   })
 
   const endVal = 0.4
-  const spring = { stiffness: 100, damping: 20 }
-  const translateXValues = [
-    useSpring(useTransform(scrollYProgress, [0, endVal], ["0", xPos[0]]), spring),
-    useSpring(useTransform(scrollYProgress, [0, endVal], ["0", xPos[1]]), spring),
-    useSpring(useTransform(scrollYProgress, [0, endVal], ["0", xPos[2]]), spring),
-    useSpring(useTransform(scrollYProgress, [0, endVal], ["0", xPos[3]]), spring),
-    useSpring(useTransform(scrollYProgress, [0, endVal], ["0", xPos[4]]), spring),
-  ]
 
-  const textTranslateX = useSpring(
-    useTransform(scrollYProgress, [0, endVal], ["0", xPos[xPos.length - 2]]),
-    spring
-  )
+  const textTranslateX = useTransform(scrollYProgress, [0, endVal], [cardWidth * 3, 0])
   const textOpacity = useTransform(scrollYProgress, [0, endVal], ["30%", "100%"])
 
   return (
-    <section ref={sectionRef} className="bg-red-100 min-h-screen h-[320vh] p-1 relative py-72">
-      <div className="ring ring-black stack-slider sticky top-40 flex items-start gap-6">
-        {cards.map((n, i) => (
-          <motion.div
-            key={n}
-            className="w-50 aspect-[5/7] flex items-center justify-center text-2xl font-bold"
-            style={{
-              backgroundColor: colors[i],
-              translateX: translateXValues[i],
-              zIndex: 10 - i,
-            }} // lower zIndex = further back
-          >
-            {n}
-          </motion.div>
-        ))}
+    <section ref={sectionRef} className="relative h-[320vh] min-h-screen bg-red-100 p-1">
+      <div className="stack-slider sticky top-0 ml-8 flex h-screen flex-col justify-center ring ring-black">
+        <div className="relative" style={{ height: (cardWidth / 5) * 7 }}>
+          {cards.map((card, i) => {
+            const x = useTransform(scrollYProgress, [0, endVal], [cardWidth * i, "0"])
+            const scale = useTransform(scrollYProgress, [0.2, endVal], [1, (100 - i * 2) / 100])
 
-        <motion.div
-          className="text-3xl text-red-700 flex justify-center flex-col relative"
-          style={{
-            left: -200,
-            translateX: textTranslateX,
-            opacity: textOpacity,
-          }}
-        >
-          <p>Your mental</p>
-          <p>wellness journey</p>
-          <p>starts now</p>
-        </motion.div>
+            return (
+              <motion.div
+                key={card}
+                className="absolute top-0 flex aspect-[5/7] items-center justify-center rounded-2xl text-2xl font-bold"
+                style={{
+                  x,
+                  scale,
+                  width: cardWidth,
+                  left: 24 * i,
+                  backgroundColor: colors[i],
+                  zIndex: 10 - i, // lower zIndex = further back
+                }}
+              >
+                {card}
+              </motion.div>
+            )
+          })}
+
+          <motion.div
+            className="text-dim-grey relative flex h-full max-w-3xl flex-col justify-center pl-2 text-7xl font-bold"
+            style={{
+              left: cardWidth * 1.3,
+              translateX: textTranslateX,
+              opacity: textOpacity,
+            }}
+          >
+            <p>Your mental</p>
+            <p>wellness journey</p>
+            <p>starts now</p>
+          </motion.div>
+        </div>
       </div>
     </section>
   )
