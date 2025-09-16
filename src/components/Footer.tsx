@@ -27,54 +27,63 @@ const links = [
 
 export const Footer = () => {
   return (
-    <footer className="bg-[#1f3634] py-12">
-      <div className="container mx-auto flex max-w-7xl justify-between">
-        <div>
-          <img
-            className="image-brand h-4"
-            src="https://cdn.prod.website-files.com/675c8e48ca0e0fb5ab421239/67e725b86fdf9ee970fe1013_zuno-logo.svg"
-            loading="lazy"
-            alt=""
-          />
-        </div>
+    <>
+      {/* Rounded divider */}
+      <div className="h-20 bg-[#1f3634]">
+        <div className="h-full w-full rounded-b-full bg-white"></div>
+      </div>
 
-        <div className="flex gap-16">
-          {links.map((link) => (
-            <div key={link.title}>
-              <div className="text-primary-light">{link.title}</div>
-              <ul>
-                {link.items.map((item) => (
-                  <li className="text-avocado mt-4" key={item.title}>
-                    <a
-                      className="border-b border-transparent pb-2 hover:border-gray-200"
-                      href={item.href}
-                    >
-                      {item.title}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+      <footer className="bg-[#1f3634] pt-30 pb-12">
+        <div className="container mx-auto flex max-w-7xl justify-between">
           <div>
-            <div className="text-primary-light">Newsletter</div>
-            <EmailForm />
-            <p className="mt-4 text-xs text-zinc-400">
-              We only share your information in accordance <br /> with our privacy policy.
-            </p>
+            <img
+              className="image-brand h-4"
+              src="https://cdn.prod.website-files.com/675c8e48ca0e0fb5ab421239/67e725b86fdf9ee970fe1013_zuno-logo.svg"
+              loading="lazy"
+              alt=""
+            />
+          </div>
+
+          <div className="flex gap-16">
+            {links.map((link) => (
+              <div key={link.title}>
+                <div className="text-primary-light">{link.title}</div>
+                <ul>
+                  {link.items.map((item) => (
+                    <li className="text-avocado mt-4" key={item.title}>
+                      <a
+                        className="border-b border-transparent pb-2 hover:border-gray-200"
+                        href={item.href}
+                      >
+                        {item.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+
+            {/* Form */}
+            <div>
+              <div className="text-primary-light">Newsletter</div>
+              <EmailForm />
+              <p className="mt-4 text-xs text-zinc-400">
+                We only share your information in accordance <br /> with our privacy policy.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="border-avocado/40 container mx-auto mt-6 max-w-7xl border-t">
-        <p className="mt-6 text-xs text-zinc-400">
-          Nullam quis risus eget urna mollis ornare vel eu leo. Integer posuere erat a ante
-          venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat
-          porttitor ligula, eget lacinia odio sem nec elit. Nulla vitae elit libero, a pharetra
-          augue.. © Zuno 2025. All rights reserved.
-        </p>
-      </div>
-    </footer>
+        <div className="border-avocado/40 container mx-auto mt-6 max-w-7xl border-t">
+          <p className="mt-6 text-xs text-zinc-400">
+            Nullam quis risus eget urna mollis ornare vel eu leo. Integer posuere erat a ante
+            venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat
+            porttitor ligula, eget lacinia odio sem nec elit. Nulla vitae elit libero, a pharetra
+            augue.. © Zuno 2025. All rights reserved.
+          </p>
+        </div>
+      </footer>
+    </>
   )
 }
 function EmailForm() {

@@ -2,6 +2,8 @@
 
 import AnimatedImageFrame from "@/components/AnimatedImageFrame"
 import AnimatedMarqueeCards from "@/components/AnimatedMarqueeCards"
+import FAQ from "@/components/FAQ"
+import FixedBtn from "@/components/FixedBtn"
 import { Footer } from "@/components/Footer"
 import Hero from "@/components/Hero"
 import HorizontalStackCards from "@/components/HorizontalStackCards"
@@ -63,9 +65,12 @@ export default function Home() {
         <AnimatedImageFrame image="https://cdn.prod.website-files.com/675c8e48ca0e0fb5ab421239/67f9e24c2d1b01e097179829_bg-cloud-71.avif" />
         <ImageGrid />
         <AnimatedMarqueeCards />
+        <FAQ />
       </main>
 
       <Footer />
+
+      <FixedBtn>Get 50% OFF</FixedBtn>
     </div>
   )
 }
