@@ -8,6 +8,7 @@ import { Footer } from "@/components/Footer"
 import Hero from "@/components/Hero"
 import HorizontalStackCards from "@/components/HorizontalStackCards"
 import ImageGrid from "@/components/ImageGrid"
+import Navbar from "@/components/Navbar"
 import SpinningCards from "@/components/SpinningCards"
 
 const spinningCards = [
@@ -58,6 +59,8 @@ const horizontalStackCards = [
 export default function Home() {
   return (
     <div className="min-h-screen font-sans">
+      <Navbar />
+
       <main>
         <Hero />
         <SpinningCards images={spinningCards} />
