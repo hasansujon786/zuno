@@ -1,29 +1,29 @@
+import { SPRING_CONF } from "@/constants/styles"
 import { motion, MotionValue, useScroll, useSpring, useTransform } from "framer-motion"
 import { useRef } from "react"
 import { useWindowSize } from "usehooks-ts"
 
 const images = [
   [
-    "https://picsum.photos/id/1005/1000/1000",
-    "https://picsum.photos/id/1011/1000/1000",
-    "https://picsum.photos/id/1012/1000/1000",
+    "https://cdn.prod.website-files.com/675c8e48ca0e0fb5ab421239/67f9c31841d04e272a85216f_bg-cloud-63.avif",
+    "https://cdn.prod.website-files.com/675c8e48ca0e0fb5ab421239/67f75435261184f880702d40_bg-cloud-43.avif",
+    "https://cdn.prod.website-files.com/675c8e48ca0e0fb5ab421239/67f9c6586f1024288c4e6ed8_bg-cloud-64.avif",
   ],
   [
-    "https://picsum.photos/id/1015/1000/1000",
+    "https://cdn.prod.website-files.com/675c8e48ca0e0fb5ab421239/67f9d38f41d04e272a8d2926_bg-cloud-66.avif",
     "https://cdn.prod.website-files.com/675c8e48ca0e0fb5ab421239/67f9c6586f1024288c4e6ed8_bg-cloud-64.avif", // Center image
-    "https://picsum.photos/id/1021/1000/1000",
+    "https://cdn.prod.website-files.com/675c8e48ca0e0fb5ab421239/67f7ee4df847a9fb30978659_bg-cloud-54.avif",
   ],
   [
-    "https://picsum.photos/id/1022/1000/1000",
-    "https://picsum.photos/id/1024/1000/1000",
-    "https://picsum.photos/id/1023/1000/1000",
+    "https://cdn.prod.website-files.com/675c8e48ca0e0fb5ab421239/67f1eff7704d86833488bc4e_bg-cloud-17.avif",
+    "https://cdn.prod.website-files.com/675c8e48ca0e0fb5ab421239/67f89444d1d997a80bbd9c44_bg-cloud-61.avif",
+    "https://cdn.prod.website-files.com/675c8e48ca0e0fb5ab421239/67f288caa25e4431e4d74500_bg-cloud-30.avif",
   ],
 ]
 const OFFSET_COLUMN = 80
 const IMG_GAP = 30
-const SPRING_CONF = { stiffness: 100, damping: 20 }
 
-export default function ImgGrid() {
+export default function ImageGrid() {
   const scrollRef = useRef<HTMLElement | null>(null)
   const { scrollYProgress } = useScroll({
     target: scrollRef,
@@ -34,7 +34,7 @@ export default function ImgGrid() {
   const colWidth = width / 3
 
   return (
-    <section ref={scrollRef} className="h-[300vh]">
+    <section ref={scrollRef} className="h-[350vh]">
       <div className="sticky top-0 flex h-screen w-screen items-start justify-center overflow-hidden">
         <SideColumn
           images={images[0]}
@@ -56,6 +56,8 @@ export default function ImgGrid() {
           progressY={scrollYProgress}
           direction="right"
         />
+
+        <TextContent progressY={scrollYProgress} />
       </div>
     </section>
   )
@@ -70,11 +72,11 @@ type MiddleColumnProps = {
 
 const MiddleColumn = ({ width, progressY, images, maxWidth }: MiddleColumnProps) => {
   const midColWidth = width + OFFSET_COLUMN * 2
+  const zoomHeight = useSpring(useTransform(progressY, [0, 0.4], ["66vh", "100vh"]), SPRING_CONF)
   const zoomWidth = useSpring(
     useTransform(progressY, [0, 0.4], [midColWidth, maxWidth]),
     SPRING_CONF
   )
-  const zoomHeight = useSpring(useTransform(progressY, [0, 0.4], ["66%", "100%"]), SPRING_CONF)
   const zoomBorderRadius = useSpring(
     useTransform(progressY, [0.38, 0.4], ["16px", "0px"]),
     SPRING_CONF
@@ -82,10 +84,9 @@ const MiddleColumn = ({ width, progressY, images, maxWidth }: MiddleColumnProps)
 
   const top = useSpring(useTransform(progressY, [0, 0.4], ["-20vh", "-40vh"]), SPRING_CONF)
 
-  const zoomOpacity = useSpring(useTransform(progressY, [0.4, 0.6], ["0%", "100%"]), SPRING_CONF)
-
   return (
     <div className="h-full">
+      {/* top image */}
       <motion.div
         className="relative flex h-[40vh] w-full justify-center"
         style={{ top, paddingBottom: IMG_GAP }}
@@ -98,24 +99,19 @@ const MiddleColumn = ({ width, progressY, images, maxWidth }: MiddleColumnProps)
         />
       </motion.div>
 
+      {/* center image */}
       <motion.div
         className="relative bg-cover bg-center"
         style={{
+          top,
           width: zoomWidth,
           height: zoomHeight,
           borderRadius: zoomBorderRadius,
-          top,
           backgroundImage: `url(${images[1]})`,
         }}
-      >
-        <motion.div
-          className="flex h-full w-full flex-col items-center justify-center bg-black/70"
-          style={{ opacity: zoomOpacity }}
-        >
-          <p className="text-white">AI that understands your emotions</p>
-        </motion.div>
-      </motion.div>
+      />
 
+      {/* bottom image */}
       <motion.div
         className="relative flex h-[40vh] w-full justify-center"
         style={{ top, paddingTop: IMG_GAP }}
@@ -168,6 +164,24 @@ const SideColumn = ({ width, progressY, direction, images }: SideColumnProps) =>
           <img className="h-full w-full rounded-2xl object-cover" width={width} src={img} alt="" />
         </div>
       ))}
+    </motion.div>
+  )
+}
+
+function TextContent({ progressY }: { progressY: MotionValue<number> }) {
+  const overlayOpacity = useTransform(progressY, [0.38, 0.6], [0, 1])
+
+  return (
+    <motion.div
+      className="absolute flex h-full w-full flex-col items-center justify-center gap-5 bg-black/70"
+      style={{ opacity: overlayOpacity }}
+    >
+      <div className="rounded-2xl bg-black/20 px-4 py-1.5 text-sm font-medium text-white">
+        Personal Growth
+      </div>
+      <h1 className="max-w-3xl text-center text-7xl font-bold text-white">
+        AI that understands your emotions
+      </h1>
     </motion.div>
   )
 }
