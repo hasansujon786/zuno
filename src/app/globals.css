@@ -17,6 +17,7 @@
   --color-primary: var(--lime-green);
   --color-primary-dark: var(--lime-green-dark);
   --color-primary-light: var(--lime-green-light);
+  --color-avocado: rgb(171, 177, 160);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);

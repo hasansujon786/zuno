@@ -1,6 +1,7 @@
 "use client"
 
 import AnimatedImageFrame from "@/components/AnimatedImageFrame"
+import AnimatedMarqueeCards from "@/components/AnimatedMarqueeCards"
 import { Footer } from "@/components/Footer"
 import Hero from "@/components/Hero"
 import HorizontalStackCards from "@/components/HorizontalStackCards"
@@ -61,6 +62,7 @@ export default function Home() {
         <HorizontalStackCards images={horizontalStackCards} />
         <AnimatedImageFrame image="https://cdn.prod.website-files.com/675c8e48ca0e0fb5ab421239/67f9e24c2d1b01e097179829_bg-cloud-71.avif" />
         <ImageGrid />
+        <AnimatedMarqueeCards />
       </main>
 
       <Footer />
