@@ -34,13 +34,13 @@ export default function SpinningCards({ images }: CircleStackScrollProps) {
   return (
     <section ref={scrollRef} className="flex h-[700vh] items-start justify-center">
       <motion.div
-        className="sticky top-0 aspect-square origin-center"
+        className="sticky top-0 aspect-square origin-center overflow-x-hidden"
         style={{ width: columnWrapperWidth }}
       >
         <TextContent progressY={scrollYProgress} />
 
         <motion.div
-          className="relative h-full w-full origin-center overflow-x-hidden"
+          className="relative h-full w-full origin-center"
           style={{ rotate: wrapperRotate, scale: wrapperScale }}
         >
           {images.map((col, i) => (
