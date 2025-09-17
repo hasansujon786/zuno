@@ -22,26 +22,26 @@ export default function AnimatedImageFrame({ image }: AnimatedImgFrameProps) {
   )
 
   const opacity = useTransform(scrollYProgress, [0.1, 0.2], ["0%", "100%"])
-  const width = useTransform(scrollYProgress, [0.2, 0.4], ["33vw", "90vw"])
+  const width = useTransform(scrollYProgress, [0.2, 0.4], ["33%", "90%"])
 
   return (
-    <section ref={scrollRef} className="h-[350vh] bg-yellow-200">
+    <section ref={scrollRef} className="h-[350vh]">
       <motion.div
-        className="sticky top-0 h-screen w-screen bg-green-200 bg-cover bg-center"
+        className="sticky top-0 h-screen w-full bg-cover bg-center"
         style={{ backgroundImage }}
       >
         {/* Front clipped image */}
         <div
-          className="absolute top-0 left-0 h-screen w-screen bg-yellow-200 bg-cover bg-center mask-center mask-no-repeat"
+          className="absolute top-0 left-0 h-screen w-full bg-cover bg-center mask-center mask-no-repeat"
           style={{
             backgroundImage: `url(${image})`,
-            clipPath: "inset(10vh 5vw round 24px)",
+            clipPath: "inset(10vh 5% round 24px)",
           }}
         />
 
         {/* Animated Frame */}
         <motion.div
-          className="absolute top-1/2 left-1/2 h-[80vh] w-[90vw] -translate-1/2 rounded-3xl outline-2 outline-white"
+          className="absolute top-1/2 left-1/2 h-[80vh] w-[90%] -translate-1/2 rounded-3xl outline-2 outline-white"
           style={{ width, opacity }}
         >
           {/* Text Content */}

@@ -35,7 +35,7 @@ export default function ImageGrid() {
 
   return (
     <section ref={scrollRef} className="h-[350vh]">
-      <div className="sticky top-0 flex h-screen w-screen items-start justify-center overflow-hidden">
+      <div className="sticky top-0 flex h-screen w-full items-start justify-center overflow-hidden">
         <SideColumn
           images={images[0]}
           width={colWidth}
