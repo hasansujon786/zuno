@@ -25,9 +25,9 @@ export default function HorizontalStackCards({ images }: HorizontalStackCardsPro
   )
 
   return (
-    <section ref={sectionRef} className="relative h-[320vh] min-h-screen p-1 bg-gray-200">
-      <div className="stack-slider sticky top-0 ml-8 flex h-screen flex-col justify-center">
-        <div className="relative" style={{ height: (cardWidth / 5) * 7 }}>
+    <section ref={sectionRef} className="relative h-[320vh] min-h-screen bg-gray-200">
+      <div className="stack-slider sticky top-0 flex h-screen flex-col justify-center pl-8">
+        <div className="relative overflow-x-hidden" style={{ height: (cardWidth / 5) * 7 }}>
           {images.map((img, i) => (
             <StackCard
               key={img}

@@ -40,7 +40,7 @@ export default function SpinningCards({ images }: CircleStackScrollProps) {
         <TextContent progressY={scrollYProgress} />
 
         <motion.div
-          className="relative h-full w-full origin-center"
+          className="relative h-full w-full origin-center overflow-x-hidden"
           style={{ rotate: wrapperRotate, scale: wrapperScale }}
         >
           {images.map((col, i) => (
