@@ -29,11 +29,13 @@ export const Footer = () => {
   return (
     <>
       {/* Rounded divider */}
-      <div className="h-20 bg-[#1f3634]">
+      {/* NOTE: This should have the same height as the footer */}
+      <div className="mb-[80vh] h-20 bg-[#1f3634]">
         <div className="h-full w-full rounded-b-full bg-white"></div>
       </div>
 
-      <footer className="bg-[#1f3634] pt-30 pb-12">
+      {/* Fix the footer at the bottom To show the parallax effect */}
+      <footer className="fixed right-0 bottom-0 left-0 -z-20 flex h-[80vh] flex-col justify-end bg-[#1f3634] pt-30 pb-12">
         <div className="container mx-auto flex max-w-7xl justify-between">
           <div>
             <img

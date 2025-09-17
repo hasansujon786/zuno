@@ -58,7 +58,7 @@ const horizontalStackCards = [
 
 export default function Home() {
   return (
-    <div className="min-h-screen font-sans">
+    <div className="min-h-screen font-sans bg-white">
       <Navbar />
 
       <main>
